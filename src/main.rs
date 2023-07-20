@@ -2,8 +2,7 @@ use std::net::SocketAddr;
 use axum::{response::Html, routing::get, Router};
 
 mod routes;
-
-// routes::hello;
+mod db;
 
 
 #[tokio::main]
