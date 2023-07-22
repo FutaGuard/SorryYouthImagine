@@ -7,7 +7,7 @@ use diesel::prelude::*;
 
 #[derive(Queryable, Selectable)]
 #[diesel(table_name = images)]
-pub struct Image {
+pub struct Images {
     id: Uuid,         // auto increment
     date: SystemTime,
     upload_by: i32,   // relate to user id
