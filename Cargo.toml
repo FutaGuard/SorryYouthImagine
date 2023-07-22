@@ -9,5 +9,6 @@ edition = "2021"
 axum = "0.6.19"
 chrono = "0.4.26"
 diesel = { version = "2.1.0", features = ["postgres"] }
+dotenvy = "0.15.7"
 tokio = { version = "1.29.1", features = ["full"] }
-uuid = "1.4.1"
+uuid = { version = "1.4.1", features = ["v7", "serde"] }

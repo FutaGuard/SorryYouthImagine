@@ -13,8 +13,8 @@ diesel::table! {
 diesel::table! {
     users (id) {
         id -> Uuid,
-        is_admin -> Nullable<Bool>,
-        active -> Nullable<Bool>,
+        is_admin -> Bool,
+        active -> Bool,
     }
 }
 

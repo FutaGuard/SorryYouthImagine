@@ -3,8 +3,7 @@ use diesel::prelude::*;
 use uuid::Uuid;
 
 #[derive(Queryable, Selectable)]
-#[diesel(table_name = users)]
-#[diesel(check_for_backend(diesel::pg::Pg))]
+#[diesel(table_name = crate::schema::users)]
 pub struct Users {
     pub id: Uuid,
     pub is_admin: bool, // user.is_admin can access manager panel
@@ -12,8 +11,7 @@ pub struct Users {
 }
 
 #[derive(Queryable, Selectable)]
-#[diesel(table_name = images)]
-#[diesel(check_for_backend(diesel::pg::Pg))]
+#[diesel(table_name = crate::schema::images)]
 pub struct Images {
     pub id: Uuid,         // auto increment
     pub date: SystemTime,
