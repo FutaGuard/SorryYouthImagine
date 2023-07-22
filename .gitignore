@@ -7,3 +7,5 @@
 /target
 
 src/config.yml
+
+.env
