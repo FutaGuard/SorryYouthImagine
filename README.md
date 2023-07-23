@@ -11,5 +11,5 @@ Imgur 沒了只好隨便寫寫一個。
 
 # 🤔 Concept 概念
 - [ ] 🛡️ 管理員可以刪除任何人的圖片
-- [ ] 🛡️ SQL 執行 migration 追蹤路 schema 變化
+- [ ] 🚗️ SQL 執行 migration 追蹤路 schema 變化
 - [ ] ⚡ API 完全以 Rust 🦀 撰寫
