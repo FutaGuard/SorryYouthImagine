@@ -2,7 +2,10 @@ use std::time::SystemTime;
 use diesel::prelude::*;
 use uuid::Uuid;
 
-#[derive(Queryable, Selectable)]
+use serde::{Deserialize, Serialize};
+
+
+#[derive(Queryable, Selectable, Serialize, Deserialize, Debug)]
 #[diesel(table_name = crate::schema::users)]
 pub struct Users {
     pub id: Uuid,
@@ -10,7 +13,7 @@ pub struct Users {
     pub active: bool,   // user.active can login, user can be deactivated by admin
 }
 
-#[derive(Queryable, Selectable)]
+#[derive(Queryable, Selectable, Serialize, Deserialize)]
 #[diesel(table_name = crate::schema::images)]
 pub struct Images {
     pub id: Uuid,         // auto increment

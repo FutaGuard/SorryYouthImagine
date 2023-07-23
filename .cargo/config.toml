@@ -1,0 +1,5 @@
+[build]
+rustflags = ["--cfg", "uuid_unstable"]
+
+[env]
+#RUSTFLAGS="--cfg uuid_unstable"
