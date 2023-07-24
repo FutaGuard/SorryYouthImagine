@@ -1,6 +1,7 @@
 use std::env;
 use std::net::SocketAddr;
-use axum::{response::Html, routing::get, Router};
+use axum::{response::Html, routing::get, routing::post, Router};
+// use axum::routing::post;
 use dotenvy::dotenv;
 
 mod routes;
@@ -18,6 +19,7 @@ async fn main() {
     let app = Router::new()
         .route("/", get(routes::ping::ping))
         .route("/root", get(root))
+        .route("/user/create", post(routes::user::create_user))
         .with_state(pool);
 
     // run it

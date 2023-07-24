@@ -1,11 +1,11 @@
 use std::time::SystemTime;
 use diesel::prelude::*;
 use uuid::Uuid;
-
+// use diesel::sql_types::Uuid;
 use serde::{Deserialize, Serialize};
 
 
-#[derive(Queryable, Selectable, Serialize, Deserialize, Debug)]
+#[derive(Queryable, Selectable, Serialize, Deserialize, Insertable)]
 #[diesel(table_name = crate::schema::users)]
 pub struct Users {
     pub id: Uuid,
