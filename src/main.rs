@@ -19,7 +19,7 @@ async fn main() {
     let app = Router::new()
         .route("/", get(routes::ping::ping))
         .route("/root", get(root))
-        .route("/user/create", post(routes::user::create_user))
+        .route("/users/create", post(routes::user::create_user))
         .with_state(pool);
 
     // run it
