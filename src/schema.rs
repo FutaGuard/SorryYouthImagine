@@ -3,7 +3,7 @@
 diesel::table! {
     images (id) {
         id -> Uuid,
-        date -> Nullable<Date>,
+        date -> Nullable<Timestamp>,
         upload_by -> Nullable<Varchar>,
         md5 -> Nullable<Varchar>,
         origin_filename -> Nullable<Varchar>,
