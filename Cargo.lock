@@ -172,6 +172,7 @@ dependencies = [
  "js-sys",
  "num-traits",
  "rustc-serialize",
+ "serde",
  "time 0.1.45",
  "wasm-bindgen",
  "winapi",
