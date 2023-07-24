@@ -13,4 +13,4 @@ diesel = { version = "2.1.0", features = ["postgres"] }
 dotenvy = "0.15.7"
 serde = { version = "1.0.174", features = ["derive"] }
 tokio = { version = "1.29.1", features = ["full"] }
-uuid = { version = "1.4.1", features = ["v7", "serde", "v4"] }
+uuid = { version = "1.4.1", features = ["v7", "serde"] }
