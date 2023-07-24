@@ -1,12 +1,14 @@
 use std::env;
 use std::net::SocketAddr;
 use axum::{response::Html, routing::get, Router};
+use dotenvy::dotenv;
 
 mod routes;
 
 
 #[tokio::main]
 async fn main() {
+    dotenv().expect(".env file not found");
     let database_url: String = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     let manager = deadpool_diesel::postgres::Manager::new(database_url, deadpool_diesel::Runtime::Tokio1);
     let pool = deadpool_diesel::postgres::Pool::builder(manager)
