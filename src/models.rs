@@ -1,3 +1,4 @@
+use std::time::SystemTime;
 use chrono::naive::{NaiveDateTime, NaiveDate, NaiveTime};
 use chrono::Utc;
 use diesel::prelude::*;
@@ -18,8 +19,8 @@ pub struct Users {
 #[diesel(table_name = crate::schema::images)]
 pub struct Images {
     pub id: Uuid,         // auto increment
-    pub date: Option<NaiveTime>,
-    #[diesel(deserialize_as = Option<NaiveTime>)]
+    // #[diesel(deserialize_as = Option<NaiveTime>)]
+    pub date: SystemTime,
     pub upload_by: Uuid,   // relate to user id
     pub md5: String,      // file md5 hash
     pub origin_filename: String,
