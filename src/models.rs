@@ -17,7 +17,8 @@ pub struct Users {
 pub struct Images {
     pub id: Uuid,         // auto increment
     pub date: NaiveDateTime,
-    pub upload_by: i32,   // relate to user id
+    // #[diesel(deserialize_as = Option<NaiveDateTime>)]
+    pub upload_by: Uuid,   // relate to user id
     pub md5: String,      // file md5 hash
     pub origin_filename: String,
 }
