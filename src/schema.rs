@@ -4,9 +4,9 @@ diesel::table! {
     images (id) {
         id -> Uuid,
         date -> Timestamp,
-        upload_by -> Nullable<Uuid>,
-        md5 -> Nullable<Varchar>,
-        origin_filename -> Nullable<Varchar>,
+        upload_by -> Uuid,
+        md5 -> Varchar,
+        origin_filename -> Varchar,
     }
 }
 
