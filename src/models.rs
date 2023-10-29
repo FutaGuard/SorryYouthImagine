@@ -13,6 +13,7 @@ pub struct Users {
     pub id: Uuid,
     pub is_admin: bool, // user.is_admin can access manager panel
     pub active: bool,   // user.active can login, user can be deactivated by admin
+    pub token: String,  // user.token is used for api auth
 }
 
 #[derive(Queryable, Selectable, Serialize, Deserialize, Insertable)]

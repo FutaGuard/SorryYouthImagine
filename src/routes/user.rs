@@ -28,6 +28,7 @@ pub async fn create_user(
         id: Uuid::now_v7(),
         is_admin: false,
         active: false,
+        token: "".to_string(),
     };
     let conn = pool.get().await.map_err(internal_error)?;
     let res = conn

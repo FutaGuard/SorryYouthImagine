@@ -1,8 +1,0 @@
--- Your SQL goes here
-CREATE TABLE images (
-  id UUID PRIMARY KEY,
-  date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL ,
-  upload_by UUID REFERENCES users(id) NOT NULL,
-  md5 VARCHAR NOT NULL,
-  origin_filename VARCHAR NOT NULL
-)
