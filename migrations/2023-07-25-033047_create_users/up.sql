@@ -1,0 +1,8 @@
+-- Your SQL goes here
+CREATE TABLE users (
+  id UUID PRIMARY KEY,
+  is_admin BOOLEAN DEFAULT FALSE NOT NULL,
+  active BOOLEAN DEFAULT FALSE NOT NULL,
+  username VARCHAR NOT NULL,
+  password VARCHAR NOT NULL
+)

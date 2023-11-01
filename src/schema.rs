@@ -28,8 +28,6 @@ diesel::table! {
     }
 }
 
-diesel::joinable!(images -> users (upload_by));
-
 diesel::allow_tables_to_appear_in_same_query!(
     images,
     settings,

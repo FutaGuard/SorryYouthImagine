@@ -1,6 +1,10 @@
 use axum::http::StatusCode;
 use axum::{Json, extract::State};
-use diesel::RunQueryDsl;
+// use diesel::RunQueryDsl;
+use diesel::prelude::*;
+use diesel_async::{
+    pooled_connection::AsyncDieselConnectionManager, AsyncPgConnection, RunQueryDsl,
+};
 use uuid::Uuid;
 // use diesel::sql_types::Uuid;
 use sorry_youth_imagine::models::Users;
@@ -19,8 +23,10 @@ where
     (StatusCode::INTERNAL_SERVER_ERROR, err.to_string())
 }
 
+
+
 pub async fn create_user(
-    State(pool): State<deadpool_diesel::postgres::Pool>,
+    State(pool): State<Pool>,
     Json(payload): Json<CreateUser>,
 ) -> Result<(StatusCode, Json<Users>), (StatusCode, String)> {
     // insert your application logic here
