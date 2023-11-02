@@ -1,14 +1,8 @@
 use axum::http::StatusCode;
 use axum::{Json, extract::State};
-// use diesel::RunQueryDsl;
-use diesel::prelude::*;
-use diesel_async::{
-    pooled_connection::AsyncDieselConnectionManager, AsyncPgConnection, RunQueryDsl,
-};
+use sea_orm::{Database, DatabaseConnection};
 use uuid::Uuid;
-// use diesel::sql_types::Uuid;
-use sorry_youth_imagine::models::Users;
-use sorry_youth_imagine::schema::users;
+
 use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize)]
@@ -26,7 +20,7 @@ where
 
 
 pub async fn create_user(
-    State(pool): State<Pool>,
+    State(pool): State<DatabaseConnection>,
     Json(payload): Json<CreateUser>,
 ) -> Result<(StatusCode, Json<Users>), (StatusCode, String)> {
     // insert your application logic here

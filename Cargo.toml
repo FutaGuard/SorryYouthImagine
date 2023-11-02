@@ -3,16 +3,18 @@ name = "sorry_youth_imagine"
 version = "0.1.0"
 edition = "2021"
 
+[workspace]
+members = [".", "migration"]
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+migration = { path = "migration" }
 axum = "0.6.19"
-bb8 = "0.8.1"
-chrono = { version = "0.4.26", features = ["rustc-serialize", "serde"] }
-#deadpool-diesel = { version = "0.4.1", features = ["postgres"] }
-diesel = { version = "2.1.0", features = ["uuid", "chrono", "time"] }
-diesel-async = { version = "0.4.1", features = ["postgres", "bb8"] }
+#bb8 = "0.8.1"
+chrono = { version = "0.4.31", features = ["rustc-serialize", "serde"] }
 dotenvy = "0.15.7"
-serde = { version = "1.0.174", features = ["derive"] }
+sea-orm = { version = "0.12.4", features = ["sqlx-postgres", "with-uuid", "with-chrono", "with-time"] }
+serde = { version = "1.0.190", features = ["derive"] }
 tokio = { version = "1.29.1", features = ["full"] }
 uuid = { version = "1.4.1", features = ["v7", "serde"] }
