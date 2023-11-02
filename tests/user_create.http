@@ -1,5 +1,5 @@
 ### Send POST request with json body
-POST http://localhost:3000/user/create
+POST http://localhost:3000/api/users/create
 Content-Type: application/json
 
 {

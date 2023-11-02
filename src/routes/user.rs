@@ -1,15 +1,12 @@
 use axum::http::StatusCode;
 use axum::{Json, extract::State};
-// use diesel::RunQueryDsl;
-use diesel::prelude::*;
-use diesel_async::{
-    pooled_connection::AsyncDieselConnectionManager, AsyncPgConnection, RunQueryDsl,
-};
+use sea_orm::{ActiveModelTrait, Database, DatabaseConnection};
 use uuid::Uuid;
-// use diesel::sql_types::Uuid;
-use sorry_youth_imagine::models::Users;
-use sorry_youth_imagine::schema::users;
+
 use serde::{Serialize, Deserialize};
+use ::entity::{users as Users};
+use sea_orm::ActiveValue::{Set, NotSet, Unchanged};
+// use entity::prelude::Users;
 
 #[derive(Serialize, Deserialize)]
 pub struct CreateUser {
@@ -26,30 +23,23 @@ where
 
 
 pub async fn create_user(
-    State(pool): State<Pool>,
+    State(pool): State<DatabaseConnection>,
     Json(payload): Json<CreateUser>,
-) -> Result<(StatusCode, Json<Users>), (StatusCode, String)> {
+) -> Result<(StatusCode, Json<Users::Model>), (StatusCode, String)> {
     // insert your application logic here
-    let new_user = Users {
-        id: Uuid::now_v7(),
-        is_admin: false,
-        active: false,
-        token: "".to_string(),
+    let new_user = Users::ActiveModel{
+        id: Set(Uuid::now_v7()),
+        is_admin: Set(false),
+        active: Set(true),
+        username: Set("".to_string()),
+        password: Set("".to_string()),
     };
-    let conn = pool.get().await.map_err(internal_error)?;
-    let res = conn
-        .interact(|conn| {
-            diesel::insert_into(users::table)
-                .values(new_user)
-                .get_result(conn)
-        })
-        .await
-        .map_err(internal_error)?
-        .map_err(internal_error)?;
+    // let conn = pool.get().await.map_err(internal_error)?;
+    let new_user: Users::Model = new_user.insert(&pool).await.expect("err");
 
     // this will be converted into a JSON response
     // with a status code of `201 Created`
-    Ok((StatusCode::CREATED, Json(res)))
+    Ok((StatusCode::CREATED, Json(new_user)))
 }
 
 

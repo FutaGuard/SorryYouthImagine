@@ -1,12 +1,10 @@
 use axum::http::StatusCode;
 use axum::{Json, extract::State};
-use diesel::RunQueryDsl;
 use uuid::Uuid;
 
-use sorry_youth_imagine::models::Images;
-use sorry_youth_imagine::schema::images;
 use serde::{Serialize, Deserialize};
 use chrono::prelude::*;
+use ::entity::{images as Images};
 
 #[derive(Serialize, Deserialize)]
 pub struct CreateUser {
@@ -21,31 +19,12 @@ where
 }
 
 pub async fn upload_image(
-    State(pool): State<deadpool_diesel::postgres::Pool>,
+    // State(pool): State<>,
     Json(payload): Json<CreateUser>,
-) -> Result<(StatusCode, Json<Images>), (StatusCode, String)> {
+) -> Result<(StatusCode, Json<Images::Model>), (StatusCode, String)> {
     // insert your application logic here
-    let new_user = Images {
-        id: Uuid::now_v7(),
-        date: Utc::now().naive_utc(),
-        upload_by: Default::default(),
-        md5: "".to_string(),
-        origin_filename: "".to_string(),
-    };
-    let conn = pool.get().await.map_err(internal_error)?;
-    let res = conn
-        .interact(|conn| {
-            diesel::insert_into(images::table)
-                .values(new_user)
-                .get_result(conn)
-        })
-        .await
-        .map_err(internal_error)?
-        .map_err(internal_error)?;
+    todo!();
 
-    // this will be converted into a JSON response
-    // with a status code of `201 Created`
-    Ok((StatusCode::CREATED, Json(res)))
 }
 
 

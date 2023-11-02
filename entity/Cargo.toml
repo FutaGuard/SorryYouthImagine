@@ -1,0 +1,12 @@
+[package]
+name = "entity"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "entity"
+path = "src/lib.rs"
+
+[dependencies]
+sea-orm = { version = "0.12.4", features = ["sqlx-postgres", "with-uuid", "with-chrono", "with-time"] }
+serde = { version = "1.0.190", features = ["derive"] }
