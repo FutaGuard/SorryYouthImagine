@@ -11,3 +11,5 @@ src/config.yml
 .env
 
 migration/target/
+
+.DS_Store
