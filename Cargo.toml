@@ -4,12 +4,13 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace]
-members = [".", "migration"]
+members = [".", "migration", "entity"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 migration = { path = "migration" }
+entity = { path = "entity"}
 axum = "0.6.19"
 #bb8 = "0.8.1"
 chrono = { version = "0.4.31", features = ["rustc-serialize", "serde"] }
