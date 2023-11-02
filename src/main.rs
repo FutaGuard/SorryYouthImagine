@@ -8,7 +8,6 @@ use migration::{Migrator, MigratorTrait};
 
 
 mod routes;
-mod lib;
 
 #[tokio::main]
 async fn main() {

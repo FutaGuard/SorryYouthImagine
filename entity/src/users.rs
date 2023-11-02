@@ -10,20 +10,11 @@ pub struct Model {
     pub id: Uuid,
     pub is_admin: bool,
     pub active: bool,
-    pub token: String,
+    pub username: String,
     pub password: String,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
-pub enum Relation {
-    #[sea_orm(has_many = "super::images::Entity")]
-    Images,
-}
-
-impl Related<super::images::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::Images.def()
-    }
-}
+pub enum Relation {}
 
 impl ActiveModelBehavior for ActiveModel {}

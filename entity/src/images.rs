@@ -10,26 +10,13 @@ pub struct Model {
     pub id: Uuid,
     pub date: DateTime,
     pub upload_by: Uuid,
-    pub md5: String,
-    pub origin_filename: String,
+    pub hash: String,
+    #[sea_orm(column_type = "Text")]
+    pub origin_file_name: String,
+    pub slug: String,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
-pub enum Relation {
-    #[sea_orm(
-        belongs_to = "super::users::Entity",
-        from = "Column::UploadBy",
-        to = "super::users::Column::Id",
-        on_update = "NoAction",
-        on_delete = "NoAction"
-    )]
-    Users,
-}
-
-impl Related<super::users::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::Users.def()
-    }
-}
+pub enum Relation {}
 
 impl ActiveModelBehavior for ActiveModel {}

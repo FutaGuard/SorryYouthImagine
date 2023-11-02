@@ -9,8 +9,7 @@ pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
     pub guest: bool,
-    #[sea_orm(column_type = "Text")]
-    pub sitename: String,
+    pub site_name: String,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
