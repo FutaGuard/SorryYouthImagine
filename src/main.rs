@@ -6,7 +6,6 @@ use dotenvy::dotenv;
 use sea_orm::{Database, DatabaseConnection};
 use migration::{Migrator, MigratorTrait};
 
-
 mod routes;
 
 #[tokio::main]

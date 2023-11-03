@@ -19,3 +19,5 @@ sea-orm = { version = "0.12.4", features = ["sqlx-postgres", "with-uuid", "with-
 serde = { version = "1.0.190", features = ["derive"] }
 tokio = { version = "1.29.1", features = ["full"] }
 uuid = { version = "1.4.1", features = ["v7", "serde"] }
+rand = "0.8.5"
+passwords = "3.1.16"

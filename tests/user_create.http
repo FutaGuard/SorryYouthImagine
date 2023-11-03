@@ -3,5 +3,6 @@ POST http://localhost:3000/api/users/create
 Content-Type: application/json
 
 {
-  "token": "content"
+  "token": "content",
+  "username": "kachow"
 }
