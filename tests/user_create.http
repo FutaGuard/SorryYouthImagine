@@ -4,5 +4,5 @@ Content-Type: application/json
 
 {
   "token": "content",
-  "username": "kachow"
+  "username": "{{$random.uuid}}"
 }

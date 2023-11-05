@@ -7,6 +7,13 @@ use serde::{Serialize, Deserialize};
 use ::entity::{users as Users};
 use sea_orm::ActiveValue::{Set};
 use passwords;
+use argon2::{
+    password_hash::{
+        rand_core::OsRng,
+        PasswordHash, PasswordHasher, PasswordVerifier, SaltString
+    },
+    Argon2
+};
 // use entity::prelude::Users;
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -43,7 +50,7 @@ pub async fn create_user(
         }
     }
 
-    let pw = passwords::PasswordGenerator {
+    let pwd = passwords::PasswordGenerator {
         length: 28,
         numbers: true,
         lowercase_letters: true,
@@ -53,18 +60,23 @@ pub async fn create_user(
         exclude_similar_characters: false,
         strict: false,
     };
+    let plainpwd = pwd.generate_one().unwrap().to_string();
+    let salt = SaltString::generate(&mut OsRng);
+    let argon2 = Argon2::default().hash_password(plainpwd.as_ref(), &salt).unwrap().to_string();
+
     let new_user = Users::ActiveModel {
         id: Set(Uuid::now_v7()),
         is_admin: Set(false),
         active: Set(true),
         username: Set(payload.username.to_string()),
-        password: Set(pw.generate_one().unwrap().to_string()),
+        password: Set(argon2),
     };
     // let conn = pool.get().await.map_err(internal_error)?;
-    let new_user: Users::Model = new_user.insert(&pool).await.expect("err");
+    let mut new_user: Users::Model = new_user.insert(&pool).await.expect("err");
 
     // this will be converted into a JSON response
     // with a status code of `201 Created`
+    new_user.password = plainpwd;
     Ok((StatusCode::CREATED, Json(new_user)))
 }
 
