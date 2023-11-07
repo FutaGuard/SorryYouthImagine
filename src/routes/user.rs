@@ -1,6 +1,7 @@
+use std::sync::Arc;
 use axum::http::StatusCode;
 use axum::{Json, extract::State};
-use sea_orm::{ActiveModelTrait, ColumnTrait, Database, DatabaseConnection, EntityTrait, QueryFilter};
+use sea_orm::{ActiveModelTrait, ColumnTrait, DatabaseConnection, EntityTrait, QueryFilter};
 use uuid::Uuid;
 
 use serde::{Serialize, Deserialize};
@@ -10,10 +11,12 @@ use passwords;
 use argon2::{
     password_hash::{
         rand_core::OsRng,
-        PasswordHash, PasswordHasher, PasswordVerifier, SaltString
+        PasswordHasher, SaltString
     },
     Argon2
 };
+use crate::AppState;
+
 // use entity::prelude::Users;
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -31,12 +34,12 @@ pub fn internal_error<E>(err: E) -> (StatusCode, String)
 
 
 pub async fn create_user(
-    State(pool): State<DatabaseConnection>,
+    State(state): State<Arc<AppState>>,
     Json(payload): Json<CreateUser>,
 ) -> Result<(StatusCode, Json<Users::Model>), (StatusCode, String)> {
     let user = Users::Entity::find()
         .filter(Users::Column::Username.eq(payload.clone().username))
-        .one(&pool)
+        .one(&state.db)
         .await;
 
     match user {
@@ -72,7 +75,7 @@ pub async fn create_user(
         password: Set(argon2),
     };
     // let conn = pool.get().await.map_err(internal_error)?;
-    let mut new_user: Users::Model = new_user.insert(&pool).await.expect("err");
+    let mut new_user: Users::Model = new_user.insert(&state.db).await.expect("err");
 
     // this will be converted into a JSON response
     // with a status code of `201 Created`
